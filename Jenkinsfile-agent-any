@@ -1,4 +1,4 @@
-pipeline{
+Opipeline{
 	agent any
 		stages{
 	
@@ -9,15 +9,15 @@ pipeline{
 				}				
 	
 			}
-			stage("TEST"){
+			stage("DEPLOY"){
 
 			step{
-				sh 'sleep 10; echo "This is test stage"'
+				sh 'sleep 10; echo "This is deploy stage"'
 }
 }		
-			stage("DEPLOY"){
+			stage("TEST"){
 			step{
-				sh 'sleep 10; echo "This is deploy stage"'
+				sh 'sleep 10; echo "This is test stage"'
 }
 
 }
