@@ -8,17 +8,17 @@ pipeline {
             }
         }
 
-        stage("TEST") {
-            agent { label 'node1' }
-            steps {
-                sh 'sleep 10; echo "this is a test stage"'
-            }
-        }
-
         stage("DEPLOY") {
             agent { label 'node1' }
             steps {
                 sh 'sleep 10; echo "this is a deploy stage"'
+            }
+        }
+
+        stage("TEST") {
+            agent { label 'node1' }
+            steps {
+                sh 'sleep 10; echo "this is a test stage"'
             }
         }
     }
