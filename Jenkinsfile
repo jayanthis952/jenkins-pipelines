@@ -5,20 +5,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                // add build steps here
+                // Add your build commands here
             }
         }
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                // add test steps here
-                // sh 'exit 1'   // uncomment to simulate failure
+                // Add test commands here
+                // Uncomment the next line to simulate a failure
+                // sh 'exit 1'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                // add deploy steps here
+                // Add deploy commands here
             }
         }
     }
@@ -30,6 +31,18 @@ pipeline {
                 body: """
                 <p>Hello Jayanthi,</p>
                 <p>The Jenkins pipeline <b>${env.JOB_NAME} [${env.BUILD_NUMBER}]</b> has <b>SUCCESSFULLY completed</b>.</p>
+                <p>Check build details here: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                """,
+                to: "jayanthi1200@gmail.com"
+            )
+        }
+
+        unstable {
+            emailext (
+                subject: "⚠️ UNSTABLE: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+                body: """
+                <p>Hello Jayanthi,</p>
+                <p>The Jenkins pipeline <b>${env.JOB_NAME} [${env.BUILD_NUMBER}]</b> completed with <b>UNSTABLE status</b> (e.g., some test failures).</p>
                 <p>Check build details here: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                 """,
                 to: "jayanthi1200@gmail.com"
@@ -49,7 +62,7 @@ pipeline {
         }
 
         always {
-            echo "Pipeline finished (success or failure)."
+            echo "Pipeline finished (success, unstable, or failure)."
         }
     }
 }
